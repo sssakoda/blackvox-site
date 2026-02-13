@@ -476,6 +476,19 @@
             background: rgba(79, 156, 255, 0.3);
             color: white;
         }
+        .institution-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .institution-link:hover {
+            color: var(--accent-purple);
+            border-bottom: 1px solid var(--accent-purple);
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body>
@@ -529,6 +542,21 @@
                             Learning experiences that transform deep thinking into delight. Create spaces to engage with life's fundamental questions through joyful philosophical exploration.
                         </p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Founder Section -->
+        <section class="founder">
+            <div class="founder-container">
+                <h2 class="founder-title">Founder</h2>
+                <div class="founder-card">
+                    <h3 class="founder-name">Shuta Sakoda</h3>
+                    <p class="founder-education">Kyoto University Economics '25</p>
+                    <p class="founder-role">
+                        Founder of 
+                        <a href="https://kyodaimarketing.com/" target="_blank" rel="noopener noreferrer" class="institution-link">Kyodai Marketing Institution</a>
+                    </p>
                 </div>
             </div>
         </section>
