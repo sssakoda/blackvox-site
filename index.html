@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BLACKVOX - Your Life Editor. From outer noise to inner voice. Discover clarity through thought experiments and philosophical exploration.">
+    <title>BLACKVOX - Your Life Editor</title>
+    <!-- 
+    Deployment Instructions:
+    1. Create assets/ folder
+    2. Place logo image as assets/logo-black-bg.png
+    3. Place character image as assets/vox-character.jpg
+    -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+        
+        :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #1a1a1a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-blue: #4f9cff;
+            --accent-purple: #8b5cf6;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --noise-opacity: 0.4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Glass Noise Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(79, 156, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+            opacity: var(--noise-opacity);
+            pointer-events: none;
+            z-index: 1;
+            animation: subtleFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: var(--glass-bg);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            filter: brightness(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.05);
+        }
+
+        .brand-text {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding: 4rem 2rem;
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-character {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .character-image {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(79, 156, 255, 0.2);
+            animation: characterFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes characterFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive hero */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .character-image {
+                max-width: 300px;
+            }
+        }
+
+        .tagline {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .value-proposition {
+            font-size: clamp(1.2rem, 4vw, 2.5rem);
+            font-family: 'Crimson Text', serif;
+            font-weight: 400;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            line-height: 1.4;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Grid */
+        .services {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            font-weight: 600;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card.coming-soon {
+            position: relative;
+            opacity: 0.7;
+        }
+
+        .service-card.coming-soon::after {
+            content: 'COMING SOON';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .service-card.coming-soon .service-concept {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .service-card.coming-soon:hover {
+            transform: translateY(-5px);
+            opacity: 0.8;
+        }
+
+        .service-name {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .service-concept {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .service-card:not(.coming-soon) .service-concept {
+            font-size: 1rem;
+            color: var(--accent-blue);
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-email {
+            margin-top: 0;
+        }
+
+        .email-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 156, 255, 0.3);
+            color: white;
+        }
+
+        .contact-form {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-input {
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(79, 156, 255, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 156, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem;
+            }
+            
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+            
+            .services {
+                padding: 4rem 1.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection styles */
+        ::selection {
+            background: rgba(79, 156, 255, 0.3);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <img src="/mnt/user-data/uploads/ロゴ黒背景.png" alt="BLACKVOX Logo" class="logo-image">
+                <div class="brand-text">BLACKVOX</div>
+            </div>
+            <a href="mailto:contact@blackvox.co" class="contact-btn">Contact</a>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="tagline">Your Life Editor</h1>
+                <p class="subtitle">BLACKVOX</p>
+                <div class="value-proposition">
+                    FROM OUTER NOISE,<br>TO INNER VOICE
+                </div>
+            </div>
+            <div class="hero-character">
+                <img src="/mnt/user-data/uploads/キャラ案2.jpg" alt="Dr. Vox - Your Philosophical Guide" class="character-image">
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services">
+            <div class="services-container">
+                <h2 class="services-title">Our Ecosystem</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3 class="service-name">WHAT IF</h3>
+                        <p class="service-concept">COMPLEX TO SIMPLE</p>
+                        <p class="service-description">
+                            Through thought experiments, we transform complex realities into simple clarity. Discover the essence within daily noise and find tools to clear your thinking.
+                        </p>
+                    </div>
+                    
+                    <div class="service-card coming-soon">
+                        <p class="service-concept">SIMPLE TO DEEP</p>
+                        <p class="service-description">
+                            Physical spaces to explore organized thoughts more deeply. Cultivate simple ideas into profound insights within tranquil environments.
+                        </p>
+                    </div>
+                    
+                    <div class="service-card coming-soon">
+                        <p class="service-concept">DEEP TO DELIGHTFUL</p>
+                        <p class="service-description">
+                            Learning experiences that transform deep thinking into delight. Create spaces to engage with life's fundamental questions through joyful philosophical exploration.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <footer id="contact">
+            <div class="footer-content">
+                <div class="contact-email">
+                    <a href="mailto:contact@blackvox.co" class="email-link">contact@blackvox.co</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll effect to hero elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            const speed = scrolled * 0.5;
+            
+            if (parallax) {
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
