@@ -303,20 +303,7 @@
       gap: 0.75rem;
     }
 
-    .subscribe-fab, .contact-fab {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      width: 148px;        /* 蟷・ｒ謠・∴繧・*/
-      padding: 0.75rem 0;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+    .subscribe-fab, .contact-fab { display: flex; align-items: center; justify-content: center; width: 148px; padding: 0.75rem 0; border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: transform 0.2s ease; background: white; color: black; border: none; box-shadow: 0 4px 16px rgba(255,255,255,0.2); }
 
     .subscribe-fab {
       background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
@@ -326,11 +313,7 @@
     .subscribe-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(79,156,255,0.55); }
     .subscribe-fab::before { content: '笨・; font-size: 0.9rem; }
 
-    .contact-fab {
-      background: white;
-      color: black;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-    }
+    .contact-fab { display: flex; align-items: center; justify-content: center; width: 148px; padding: 0.75rem 0; border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: transform 0.2s ease; background: white; color: black; border: none; box-shadow: 0 4px 16px rgba(255,255,255,0.2); }
     .contact-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.45); }
 
     /* Responsive */
@@ -342,7 +325,7 @@
       .sns-bar { gap: 1rem; padding: 0.6rem 1rem; }
       .sns-link span { display: none; } /* 繝｢繝舌う繝ｫ縺ｯ繧｢繧､繧ｳ繝ｳ縺ｮ縺ｿ */
       .fab-group { bottom: 3.2rem; right: 1rem; }
-      .subscribe-fab, .contact-fab { width: 130px; font-size: 0.8rem; }
+      .subscribe-fab, .contact-fab { display: flex; align-items: center; justify-content: center; width: 148px; padding: 0.75rem 0; border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: transform 0.2s ease; background: white; color: black; border: none; box-shadow: 0 4px 16px rgba(255,255,255,0.2); }
     }
 
     html { scroll-behavior: smooth; }
@@ -459,5 +442,6 @@
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     doc
+
 
 
