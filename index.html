@@ -75,12 +75,12 @@
 
     .logo-container { display: flex; align-items: center; gap: 1rem; }
 
-    /* ③ mix-blend-mode: screen ↁE黒背景が透過、ロゴ本体だけ見えめE*/
+    /* ③ mix-blend-mode: multiply ↁE黒背景が透過、ロゴ本体だけ見えめE*/
     .logo-image {
       width: 150px;
       height: 150px;
       object-fit: contain;
-      mix-blend-mode: screen;
+      mix-blend-mode: multiply;
       filter: brightness(1.1);
       transition: transform 0.3s ease;
     }
@@ -119,7 +119,7 @@
     .hero-content { display: flex; flex-direction: column; justify-content: center; text-align: left; animation: fadeInUp 1.2s ease-out; }
     .hero-character { display: flex; justify-content: center; align-items: center; position: relative; }
 
-    /* ③ キャラクター: mix-blend-mode: screen で背景に溶け込む */
+    /* ③ キャラクター: mix-blend-mode: multiply で背景に溶け込む */
     .character-image {
       max-width: 400px;
       opacity: 0.95;
@@ -127,7 +127,7 @@
       filter: blur(0.5px);
       height: auto;
       animation: characterFloat 6s ease-in-out infinite;
-      mix-blend-mode: screen;
+      mix-blend-mode: multiply;
     }
 
     @keyframes characterFloat {
@@ -330,7 +330,7 @@
     .contact-fab {
       background: white;
       color: black;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 16px rgba(255,255,255,0.2);
     }
     .contact-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.45); }
 
@@ -352,14 +352,6 @@
 <body>
   <div class="container">
 
-    <!-- Header -->
-    <header>
-      <div class="logo-container">
-        <img src="assets/logo-black-bg.png" alt="BLACKVOX Logo" class="logo-image">
-        <div class="brand-text">BLACKVOX</div>
-      </div>
-    </header>
-
     <!-- Hero -->
     <section class="hero">
       <div class="hero-content">
@@ -370,7 +362,7 @@
         </div>
       </div>
       <div class="hero-character">
-        <img src="assets/vox-character.jpg" alt="Dr. Vox - Your Philosophical Guide" class="character-image">
+        <img src="assets/vox-character.png" alt="Dr. Vox - Your Philosophical Guide" class="character-image">
       </div>
     </section>
 
@@ -460,3 +452,7 @@
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     doc
+
+
+
+
