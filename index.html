@@ -1,654 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BLACKVOX - Your Life Editor. From outer noise to inner voice. Discover clarity through thought experiments and philosophical exploration.">
-    <title>BLACKVOX - Your Life Editor</title>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TK9HG7X73X"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TK9HG7X73X');
-    </script>
-    <!-- End Google Analytics -->
-    <!-- 
-    Deployment Instructions:
-    1. Create assets/ folder
-    2. Place logo image as blackvox-site/assets/logo-black-bg.png
-    3. Place character image as blackvox-site/assets/vox-character.jpg
-    -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@300;400;500&display=swap');
-        
-        :root {
-            --primary-dark: #0a0a0a;
-            --secondary-dark: #1a1a1a;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --accent-blue: #4f9cff;
-            --accent-purple: #8b5cf6;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --noise-opacity: 0.4;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Glass Noise Effect */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(79, 156, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
-            opacity: var(--noise-opacity);
-            pointer-events: none;
-            z-index: 1;
-            animation: subtleFloat 8s ease-in-out infinite;
-        }
-
-        @keyframes subtleFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Header */
-        header {
-            padding: 2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(20px);
-            background: var(--glass-bg);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-image {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            filter: brightness(1.1);
-            transition: transform 0.3s ease;
-        }
-
-        .logo-image:hover {
-            transform: scale(1.05);
-        }
-
-        .brand-text {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            display: none;
-        }
-
-        .contact-btn {
-            padding: 0.75rem 1.5rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 400;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .contact-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 75vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 4rem;
-            padding: 1rem 2rem; 
-            position: relative;
-            max-width: 1400px;
-            margin: 0 auto;
-            z-index: 1;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: left;
-            animation: fadeInUp 1.2s ease-out;
-        }
-
-        .hero-character {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .character-image {
-            max-width: 400px;
-            opacity: 0.95;
-            width: 100%;
-            filter: blur(0.5px);
-            height: auto;
-            animation: characterFloat 6s ease-in-out infinite;
-            mix-blend-mode: screen;
-        }
-
-        @keyframes characterFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Responsive hero */
-        @media (max-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 3rem;
-            }
-            
-            .hero-content {
-                text-align: center;
-            }
-            
-            .character-image {
-                max-width: 300px;
-            }
-        }
-
-        .tagline {
-            font-family: 'Crimson Text', serif;
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-        }
-
-        .subtitle {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .value-proposition {
-            font-size: clamp(1.2rem, 4vw, 2.5rem);
-            font-family: 'Crimson Text', serif;
-            font-weight: 400;
-            margin-bottom: 2rem;
-            max-width: 800px;
-            line-height: 1.4;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 1.2s ease-out;
-            text-align: right;
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Services Grid */
-        .services {
-            padding: 1rem 2rem 3rem 2rem;
-            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
-            position: relative; 
-            z-index: 2; 
-        }
-
-        .services-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .services-title {
-            font-family: 'Crimson Text', serif;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 2.5rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-card.coming-soon {
-            position: relative;
-            opacity: 0.7;
-        }
-
-        .service-card.coming-soon::after {
-            content: 'COMING SOON';
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .service-card.coming-soon .service-concept {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .service-card.coming-soon:hover {
-            transform: translateY(-5px);
-            opacity: 0.8;
-        }
-
-        .service-name {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .service-concept {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-        }
-
-        .service-card:not(.coming-soon) .service-concept {
-            font-size: 1rem;
-            color: var(--accent-blue);
-        }
-
-        .service-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        /* Footer */
-        footer {
-            padding: 1.5rem 2rem;
-            text-align: center;
-            border-top: 1px solid var(--glass-border);
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-        }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-email {
-            margin-top: 0;
-        }
-
-        .email-link {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .email-link:hover {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border-color: transparent;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(79, 156, 255, 0.3);
-            color: white;
-        }
-
-        .contact-form {
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .form-input {
-            padding: 1rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-secondary);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 2px rgba(79, 156, 255, 0.2);
-        }
-
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-submit {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .form-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(79, 156, 255, 0.3);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                padding: 1.5rem;
-            }
-            
-            .hero {
-                padding: 3rem 1.5rem;
-            }
-            
-            .services {
-                padding: 4rem 1.5rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Founder Section */
-        .founder {
-            padding: 2rem 2rem; 
-            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
-        }
-
-        .founder-container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .founder-title {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.8rem; /* 2.5rem → 1.8rem */
-            text-align: center;
-            margin-bottom: 1.5rem; /* 2rem → 1.5rem */
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .founder-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px; /* 16px → 12px */
-            padding: 2rem 1.5rem; /* 3rem 2rem → 2rem 1.5rem */
-            backdrop-filter: blur(20px);
-            transition: all 0.4s ease;
-            max-width: 350px; /* 400px → 350px */
-            margin: 0 auto;
-        }
-
-        .founder-card:hover {
-            transform: translateY(-3px); /* -5px → -3px */
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .founder-name {
-            font-family: 'Inter', sans-serif; /* Crimson Text → Inter */
-            font-size: 1.4rem; /* 2rem → 1.4rem */
-            font-weight: 500; /* 600 → 500 */
-            margin-bottom: 0.8rem; /* 1rem → 0.8rem */
-            color: var(--text-primary);
-        }
-
-        .founder-education {
-            color: var(--accent-blue);
-            font-size: 0.9rem; /* 1.1rem → 0.9rem */
-            margin-bottom: 0.4rem; /* 0.5rem → 0.4rem */
-            font-weight: 400; /* 500 → 400 */
-            font-family: 'Inter', sans-serif;
-        }
-
-        .founder-role {
-            color: var(--text-secondary);
-            font-size: 0.85rem; /* 1rem → 0.85rem */
-            line-height: 1.4;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .institution-link {
-            color: var(--accent-blue);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .institution-link:hover {
-            color: var(--accent-purple);
-            border-bottom: 1px solid var(--accent-purple);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BLACKVOX - Your Life Editor. From outer noise to inner voice. Discover clarity through thought experiments and philosophical exploration.">
+  <title>BLACKVOX - Your Life Editor</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TK9HG7X73X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TK9HG7X73X');
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+
+    :root {
+      --primary-dark: #0a0a0a;
+      --secondary-dark: #1a1a1a;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-blue: #4f9cff;
+      --accent-purple: #8b5cf6;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --noise-opacity: 0.4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(79, 156, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+      opacity: var(--noise-opacity);
+      pointer-events: none;
+      z-index: 1;
+      animation: subtleFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    .container { position: relative; z-index: 2; }
+
+    /* ── Header ── */
+    header {
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .logo-container { display: flex; align-items: center; gap: 1rem; }
+
+    /* ③ mix-blend-mode: screen → 黒背景が透過、ロゴ本体だけ見える */
+    .logo-image {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      transition: transform 0.3s ease;
+    }
+    .logo-image:hover { transform: scale(1.05); }
+
+    .brand-text { font-family: 'Crimson Text', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; display: none; }
+
+    .contact-btn {
+      padding: 0.75rem 1.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.9rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .contact-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 75vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 1rem 2rem;
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    .hero-content { display: flex; flex-direction: column; justify-content: center; text-align: left; animation: fadeInUp 1.2s ease-out; }
+    .hero-character { display: flex; justify-content: center; align-items: center; position: relative; }
+
+    /* ③ キャラクター: mix-blend-mode: screen で背景に溶け込む */
+    .character-image {
+      max-width: 400px;
+      opacity: 0.95;
+      width: 100%;
+      filter: blur(0.5px);
+      height: auto;
+      animation: characterFloat 6s ease-in-out infinite;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes characterFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-20px); }
+    }
+
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+      .hero-content { text-align: center; }
+      .character-image { max-width: 300px; }
+    }
+
+    .tagline {
+      font-family: 'Crimson Text', serif;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    /* ④ .subtitle (HEROのBLACKVOX文字) を削除 */
+
+    .value-proposition {
+      font-size: clamp(1.2rem, 4vw, 2.5rem);
+      font-family: 'Crimson Text', serif;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      line-height: 1.4;
+      color: var(--accent-blue);
+      animation: fadeInUp 1.2s ease-out;
+      text-align: right;
+    }
+
+    @keyframes fadeInUp {
+      0%   { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Services ── */
+    .services {
+      padding: 1rem 2rem 3rem;
+      background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
+      position: relative;
+      z-index: 2;
+    }
+    .services-container { max-width: 1200px; margin: 0 auto; }
+
+    .services-title { font-family: 'Crimson Text', serif; font-size: 2.5rem; text-align: center; margin-bottom: 2rem; font-weight: 600; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+    .service-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      backdrop-filter: blur(20px);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); opacity: 0; transition: opacity 0.4s ease; }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-card.coming-soon { position: relative; opacity: 0.7; }
+    .service-card.coming-soon::after { content: 'COMING SOON'; position: absolute; top: 1rem; right: 1rem; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .service-card.coming-soon .service-concept { color: var(--text-secondary); font-size: 1.2rem; font-weight: 600; }
+    .service-card.coming-soon:hover { transform: translateY(-5px); opacity: 0.8; }
+
+    .service-name { font-family: 'Crimson Text', serif; font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+    .service-concept { color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; font-weight: 500; }
+    .service-card:not(.coming-soon) .service-concept { font-size: 1rem; color: var(--accent-blue); }
+    .service-description { color: var(--text-secondary); line-height: 1.6; font-size: 1rem; }
+
+    /* ⑥ LIVE バッジ */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #22c55e;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .live-badge::before {
+      content: '';
+      display: block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 1.5rem 2rem 5rem;
+      text-align: center;
+      border-top: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+    }
+    .footer-content { max-width: 600px; margin: 0 auto; }
+    .contact-email { margin-top: 0; }
+    .email-link {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .email-link:hover { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); border-color: transparent; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(79,156,255,0.3); color: white; }
+
+    /* ⑤ SNSバー（画面下部固定） */
+    .sns-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0.75rem 2rem;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .sns-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+    .sns-link:hover { color: var(--text-primary); }
+    .sns-link svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+    /* ② FABグループ（右下固定・常時表示） */
+    .fab-group {
+      position: fixed;
+      bottom: 3.5rem;
+      right: 1.5rem;
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .subscribe-fab, .contact-fab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 148px;        /* 幅を揃える */
+      padding: 0.75rem 0;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .subscribe-fab {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      color: white;
+      box-shadow: 0 4px 20px rgba(79,156,255,0.4);
+    }
+    .subscribe-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(79,156,255,0.55); }
+    .subscribe-fab::before { content: '✉'; font-size: 0.9rem; }
+
+    .contact-fab {
+      background: white;
+      color: black;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .contact-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.45); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header { padding: 1.5rem; }
+      .hero { padding: 3rem 1.5rem; }
+      .services { padding: 4rem 1.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .sns-bar { gap: 1rem; padding: 0.6rem 1rem; }
+      .sns-link span { display: none; } /* モバイルはアイコンのみ */
+      .fab-group { bottom: 3.2rem; right: 1rem; }
+      .subscribe-fab, .contact-fab { width: 130px; font-size: 0.8rem; }
+    }
+
+    html { scroll-behavior: smooth; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="logo-container">
-                <img src="assets/logo-black-bg.png" alt="BLACKVOX Logo" class="logo-image">
-                <div class="brand-text">BLACKVOX</div>
-            </div>
-            <a href="mailto:contact@blackvox.co" class="contact-btn">Contact</a>
-        </header>
+  <div class="container">
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="tagline">Your Life Editor</h1>
-                <p class="subtitle">BLACKVOX</p>
-                <div class="value-proposition">
-                    FROM OUTER NOISE<br>TO INNER VOICE
-                </div>
-            </div>
-            <div class="hero-character">
-                <img src="assets/vox-character.jpg" alt="Dr. Vox - Your Philosophical Guide" class="character-image">
-            </div>
-        </section>
+    <!-- Header -->
+    <header>
+      <div class="logo-container">
+        <img src="assets/logo-black-bg.png" alt="BLACKVOX Logo" class="logo-image">
+        <div class="brand-text">BLACKVOX</div>
+      </div>
+    </header>
 
-        <!-- Services Section -->
-        <section class="services">
-            <div class="services-container">
-                <h2 class="services-title">Our Ecosystem</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <h3 class="service-name">WHAT IF</h3>
-                        <p class="service-concept">COMPLEX TO SIMPLE</p>
-                        <p class="service-description">
-                            Through thought experiments, we transform complex realities into simple clarity. Discover the essence within daily noise and find tools to clear your thinking.
-                        </p>
-                    </div>
-                    
-                    <div class="service-card coming-soon">
-                        <p class="service-concept">SIMPLE TO DEEP</p>
-                        <p class="service-description">
-                            Physical spaces to explore organized thoughts more deeply. Cultivate simple ideas into profound insights within tranquil environments.
-                        </p>
-                    </div>
-                    
-                    <div class="service-card coming-soon">
-                        <p class="service-concept">DEEP TO DELIGHTFUL</p>
-                        <p class="service-description">
-                            Learning experiences that transform deep thinking into delight. Create spaces to engage with life's fundamental questions through joyful philosophical exploration.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="tagline">Your Life Editor</h1>
+        <!-- ④ <p class="subtitle">BLACKVOX</p> 削除済み -->
+        <div class="value-proposition">
+          FROM OUTER NOISE<br>TO INNER VOICE
+        </div>
+      </div>
+      <div class="hero-character">
+        <img src="assets/vox-character.jpg" alt="Dr. Vox - Your Philosophical Guide" class="character-image">
+      </div>
+    </section>
 
-       <!-- Founder Section -->
-        <section class="founder">
-            <div class="founder-container">
-                <h2 class="founder-title">Founder</h2>
-                <div class="founder-card">
-                    <h3 class="founder-name">Shuta Sakoda</h3>
-                    <p class="founder-education">Kyoto University Economics '25</p>
-                    <p class="founder-role">
-                        Founder of 
-                        <a href="https://kyodaimarketing.com/" target="_blank" rel="noopener noreferrer" class="institution-link">Kyodai Marketing Institution</a>
-                    </p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Contact Section -->
-        <footer id="contact">
-            <div class="footer-content">
-                <div class="contact-email">
-                    <a href="mailto:contact@blackvox.co" class="email-link">contact@blackvox.co</a>
-                </div>
-            </div>
-        </footer>
-    </div>
+    <!-- Services -->
+    <section class="services">
+      <div class="services-container">
+        <h2 class="services-title">Our Ecosystem</h2>
+        <div class="services-grid">
 
-    <script>
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+          <!-- ⑥ LIVE バッジ追加 -->
+          <div class="service-card">
+            <div class="live-badge">Live</div>
+            <h3 class="service-name">WHAT IF</h3>
+            <p class="service-concept">COMPLEX TO SIMPLE</p>
+            <p class="service-description">
+              Through thought experiments, we transform complex realities into simple clarity.
+              Discover the essence within daily noise and find tools to clear your thinking.
+            </p>
+          </div>
 
-        //
-    </script>
-</body>
-</html>
+          <div class="service-card coming-soon">
+            <p class="service-concept">SIMPLE TO DEEP</p>
+            <p class="service-description">
+              Physical spaces to explore organized thoughts more deeply. Cultivate simple ideas
+              into profound insights within tranquil environments.
+            </p>
+          </div>
+
+          <div class="service-card coming-soon">
+            <p class="service-concept">DEEP TO DELIGHTFUL</p>
+            <p class="service-description">
+              Learning experiences that transform deep thinking into delight. Create spaces to
+              engage with life's fundamental questions through joyful philosophical exploration.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /container -->
+
+  <!-- ② FABグループ（常時表示・右下固定） -->
+  <div class="fab-group">
+    <a href="https://blackvox.beehiiv.com/" target="_blank" rel="noopener noreferrer" class="subscribe-fab">
+      Subscribe
+    </a>
+    <a href="mailto:contact@blackvox.co" class="contact-fab">
+      Contact
+    </a>
+  </div>
+
+  <!-- ⑤ SNSリンク（画面下部固定バー） -->
+  <div class="sns-bar">
+
+    <!-- TikTok -->
+    <a href="https://www.tiktok.com/@blackvox_co" target="_blank" rel="noopener noreferrer" class="sns-link" aria-label="TikTok">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+      <span>TikTok</span>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/blackvox_co/" target="_blank" rel="noopener noreferrer" class="sns-link" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <span>Instagram</span>
+    </a>
+
+    <!-- YouTube -->
+    <a href="https://www.youtube.com/@blackvox_co" target="_blank" rel="noopener noreferrer" class="sns-link" aria-label="YouTube">
+      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      <span>YouTube</span>
+    </a>
+
+    <!-- X -->
+    <a href="https://x.com/BLACKVOX_co" target="_blank" rel="noopener noreferrer" class="sns-link" aria-label="X">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.743l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <span>X</span>
+    </a>
+
+    <!-- note -->
+    <a href="https://note.com/blackvox" target="_blank" rel="noopener noreferrer" class="sns-link" aria-label="note">
+      <svg viewBox="0 0 24 24"><path d="M20.24 0H3.76C1.68 0 0 1.68 0 3.76v16.48C0 22.32 1.68 24 3.76 24h16.48C22.32 24 24 22.32 24 20.24V3.76C24 1.68 22.32 0 20.24 0zm-3.17 16.08c0 .23-.12.44-.32.55-.1.06-.21.08-.32.08-.13 0-.26-.04-.37-.11l-5.53-3.56v3.04c0 .37-.3.67-.67.67H8.24c-.37 0-.67-.3-.67-.67V7.92c0-.37.3-.67.67-.67h1.62c.37 0 .67.3.67.67v3.04l5.53-3.56c.2-.13.46-.14.67-.02.21.12.33.33.33.56v7.37z"/></svg>
+      <span>note</span>
+    </a>
+
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    doc
