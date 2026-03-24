@@ -89,7 +89,7 @@
 
     /* ── Hero ── */
     .hero {
-      min-height: 75vh;
+      min-height: auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
@@ -121,9 +121,10 @@
     }
 
     @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+      .hero { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
       .hero-content { text-align: center; }
-      .character-image { max-width: 300px; }
+      .character-image { max-width: 220px; }
+      .hero-character { order: -1; }
     }
 
     .tagline {
@@ -305,7 +306,7 @@
     /* Responsive */
     @media (max-width: 768px) {
       header { padding: 1.5rem; }
-      .hero { padding: 3rem 1.5rem; }
+      .hero { padding: 1.5rem 1.5rem; min-height: auto; }
       .services { padding: 4rem 1.5rem; }
       .services-grid { grid-template-columns: 1fr; }
       .sns-bar { gap: 1rem; padding: 0.6rem 1rem; }
