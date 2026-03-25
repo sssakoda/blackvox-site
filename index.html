@@ -306,16 +306,34 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      /* ヘッダー */
       header { padding: 0.75rem 1.5rem; }
-      .hero { padding: 1.5rem; min-height: auto; grid-template-columns: 1fr; }
+      .logo-image { width: 60px; height: 60px; }
+
+      /* ヒーロー: 画面全体を使う */
+      .hero {
+        min-height: calc(100vh - 80px);
+        grid-template-columns: 1fr;
+        padding: 2rem 1.5rem 6rem;
+        gap: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .hero-content { text-align: left; order: 1; }
+      .hero-character { order: 2; display: flex; justify-content: center; margin-top: 1.5rem; }
+      .character-image { max-width: 160px; }
+
+      /* テキスト */
+      .tagline { font-size: clamp(3rem, 12vw, 4.5rem); }
+      .value-proposition { text-align: left; font-size: clamp(1rem, 4.5vw, 1.4rem); padding-right: 0; }
+
+      /* その他 */
       .services { padding: 4rem 1.5rem; }
       .services-grid { grid-template-columns: 1fr; }
       .sns-bar { gap: 1rem; padding: 0.6rem 1rem; }
-      .sns-link span { display: none; } /* モバイルはアイコンのみ */
+      .sns-link span { display: none; }
       .fab-group { bottom: 3.2rem; right: 1rem; }
-      .logo-image { width: 70px; height: 70px; }
-      .tagline { font-size: clamp(2.5rem, 11vw, 4rem); white-space: normal; }
-      .value-proposition { text-align: left; font-size: clamp(1rem, 5vw, 1.6rem); padding-right: 10rem; }
       .subscribe-fab, .contact-fab { display: flex; align-items: center; justify-content: center; width: 148px; padding: 0.75rem 0; border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: transform 0.2s ease; background: white; color: black; border: none; box-shadow: 0 4px 16px rgba(255,255,255,0.2); }
     }
 
