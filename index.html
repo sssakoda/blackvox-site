@@ -311,14 +311,14 @@
 
       /* ヒーロー: 画面全体を使う */
       .hero {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        grid-template-columns: unset !important;
         min-height: 100svh;
-        grid-template-columns: 1fr;
         padding: 0 1.5rem 5rem;
-        gap: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
+        gap: 1.5rem;
       }
       .hero-content { text-align: left; order: 1; }
       .hero-character { order: 2; display: flex; justify-content: center; margin-top: 1.5rem; }
