@@ -1,450 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="BLACKVOX - Always here.. From outer noise to inner voice. Discover clarity through thought experiments and philosophical exploration.">
-  <title>BLACKVOX - Always here.</title>
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TK9HG7X73X"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-TK9HG7X73X');
-  </script>
-
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="BLACKVOX — coming soon.">
+  <title>BLACKVOX</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@300;400;500&display=swap');
-
-    :root {
-      --primary-dark: #0a0a0a;
-      --secondary-dark: #1a1a1a;
-      --glass-bg: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --accent-blue: #4f9cff;
-      --accent-purple: #8b5cf6;
-      --text-primary: #ffffff;
-      --text-secondary: #a1a1aa;
-      --noise-opacity: 0.4;
-    }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    html, body { height: 100%; }
     body {
-      font-family: 'Inter', sans-serif;
-      background: #000000;
-      color: var(--text-primary);
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    body::before { display: none; }
-
-    @keyframes subtleFloat {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-10px); }
-    }
-
-    .container { position: relative; z-index: 2; }
-
-    /* ── Header ── */
-    header {
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(20px);
-      background: rgba(0, 0, 0, 0.85);
-    }
-
-    .logo-container { display: flex; align-items: center; gap: 1rem; }
-
-    /* ③ mix-blend-mode: screen ↁE黒背景が透過、ロゴ本体だけ見えめE*/
-    .logo-image {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      mix-blend-mode: screen;
-      filter: brightness(1.1);
-      transition: transform 0.3s ease;
-    }
-    .logo-image:hover { transform: scale(1.05); }
-
-    .brand-text { font-family: 'Crimson Text', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; display: none; }
-
-    .contact-btn {
-      padding: 0.75rem 1.5rem;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 50px;
-      color: var(--text-primary);
-      text-decoration: none;
-      font-weight: 400;
-      font-size: 0.9rem;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-    .contact-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
-
-    /* ── Hero ── */
-    .hero {
-      min-height: 100svh;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      gap: 1.5rem;
-      padding: 1.5rem 1.5rem 6rem;
-      position: relative;
-      max-width: 1400px;
-      margin: 0 auto;
-      z-index: 1;
-    }
-    @media (min-width: 769px) {
-      .hero {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        gap: 4rem;
-        padding: 1rem 2rem;
-        flex-direction: unset;
-        justify-content: unset;
-      }
-    }
-
-    .hero-content { display: flex; flex-direction: column; justify-content: center; text-align: left; animation: fadeInUp 1.2s ease-out; }
-    .hero-character { display: flex; justify-content: center; align-items: center; position: relative; }
-
-    /* ③ キャラクター: mix-blend-mode: screen で背景に溶け込む */
-    .character-image {
-      max-width: 400px;
-      opacity: 0.95;
-      width: 100%;
-      filter: blur(0.5px);
-      height: auto;
-      animation: characterFloat 6s ease-in-out infinite;
-      mix-blend-mode: screen;
-    }
-
-    @keyframes characterFloat {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-20px); }
-    }
-
-    @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1.2fr 0.8fr; gap: 1rem; }
-      .hero-content { text-align: left; }
-      .character-image { max-width: 200px; }
-      .hero-character { display: flex; justify-content: center; }
-    }
-
-    .tagline {
-      font-family: 'Crimson Text', serif;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-    }
-
-    /* ④ .subtitle (HEROのBLACKVOX斁E��E を削除 */
-
-    .value-proposition {
-      font-size: clamp(1.2rem, 4vw, 2.5rem);
-      font-family: 'Crimson Text', serif;
-      font-weight: 400;
-      margin-bottom: 2rem;
-      max-width: 800px;
-      line-height: 1.4;
-      color: var(--accent-blue);
-      animation: fadeInUp 1.2s ease-out;
-      text-align: left;
-    }
-
-    @keyframes fadeInUp {
-      0%   { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── Services ── */
-    .services {
-      padding: 1rem 2rem 3rem;
-      background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
-      position: relative;
-      z-index: 2;
-    }
-    .services-container { max-width: 1200px; margin: 0 auto; }
-
-    .services-title { font-family: 'Crimson Text', serif; font-size: 2.5rem; text-align: center; margin-bottom: 2rem; font-weight: 600; }
-
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-
-    .service-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 2.5rem;
-      backdrop-filter: blur(20px);
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .service-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); opacity: 0; transition: opacity 0.4s ease; }
-    .service-card:hover::before { opacity: 1; }
-
-    .service-card.coming-soon { position: relative; opacity: 0.7; }
-    .service-card.coming-soon::after { content: 'COMING SOON'; position: absolute; top: 1rem; right: 1rem; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
-    .service-card.coming-soon .service-concept { color: var(--text-secondary); font-size: 1.2rem; font-weight: 600; }
-    .service-card.coming-soon:hover { transform: translateY(-5px); opacity: 0.8; }
-
-    .service-name { font-family: 'Crimson Text', serif; font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
-    .service-concept { color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; font-weight: 500; }
-    .service-card:not(.coming-soon) .service-concept { font-size: 1rem; color: var(--accent-blue); }
-    .service-description { color: var(--text-secondary); line-height: 1.6; font-size: 1rem; }
-
-    /* ⑥ LIVE バッジ */
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid rgba(34, 197, 94, 0.4);
-      color: #22c55e;
-      padding: 0.25rem 0.65rem;
-      border-radius: 20px;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-    .live-badge::before {
-      content: '';
-      display: block;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #22c55e;
-      animation: livePulse 1.5s ease-in-out infinite;
-    }
-    @keyframes livePulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.8); }
-    }
-
-    /* ── Footer ── */
-    footer {
-      padding: 1.5rem 2rem 5rem;
-      text-align: center;
-      border-top: 1px solid var(--glass-border);
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-    }
-    .footer-content { max-width: 600px; margin: 0 auto; }
-    .contact-email { margin-top: 0; }
-    .email-link {
-      display: inline-block;
-      padding: 1rem 2rem;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 50px;
-      color: var(--text-primary);
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-    .email-link:hover { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); border-color: transparent; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(79,156,255,0.3); color: white; }
-
-    /* ⑤ SNSバ�E�E�画面下部固定！E*/
-    .sns-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 200;
-      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.5rem;
-      padding: 0.75rem 2rem;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(16px);
-      border-top: 1px solid var(--glass-border);
+      min-height: 100vh;
+      text-align: center;
+      letter-spacing: 0.02em;
+      padding: 24px;
     }
-
-    .sns-link {
-      display: flex;
+    .wordmark {
+      font-size: clamp(28px, 7vw, 56px);
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-indent: 0.35em;
+      margin-bottom: 28px;
+    }
+    .status {
+      display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-      transition: color 0.2s ease;
+      gap: 10px;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: #a1a1aa;
+      text-transform: uppercase;
     }
-    .sns-link:hover { color: var(--text-primary); }
-    .sns-link svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
-
-    /* ② FABグループ（右下固定�E常時表示�E�E*/
-    .fab-group {
-      position: fixed;
-      bottom: 3.5rem;
-      right: 1.5rem;
-      z-index: 300;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4f9cff;
+      box-shadow: 0 0 10px #4f9cff;
+      animation: pulse 1.8s ease-in-out infinite;
     }
-
-    .subscribe-fab, .contact-fab { display: flex; align-items: center; justify-content: center; width: 148px; padding: 0.75rem 0; border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: transform 0.2s ease; background: white; color: black; border: none; box-shadow: 0 4px 16px rgba(255,255,255,0.2); }
-
-    .subscribe-fab {
-      background: #06C755;
-      color: white;
-      box-shadow: 0 4px 20px rgba(6,199,85,0.4);
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+    .sub {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #6b6b74;
+      line-height: 1.9;
     }
-    .subscribe-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(6,199,85,0.55); }
-    .subscribe-fab::before { content: '✁E; font-size: 0.9rem; }
-
-    .contact-fab { display: flex; align-items: center; justify-content: center; width: 148px; padding: 0.75rem 0; border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: transform 0.2s ease; background: white; color: black; border: none; box-shadow: 0 4px 16px rgba(255,255,255,0.2); }
-    .contact-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.45); }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      /* ヘッダー */
-      header { padding: 0.75rem 1.5rem; }
-      .logo-image { width: 60px; height: 60px; }
-
-      /* ヒーロー: 画面全体を使う */
-      .hero {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: flex-start !important;
-        grid-template-columns: unset !important;
-        min-height: 100svh;
-        padding: 0 1.5rem 5rem;
-        gap: 1.5rem;
-      }
-      .hero-content { text-align: left; order: 1; }
-      .hero-character { order: 2; display: flex; justify-content: center; margin-top: 1.5rem; }
-      .character-image { max-width: 160px; }
-
-      /* テキスト */
-      .tagline { font-size: clamp(1.6rem, 6vw, 2.5rem); }
-      .value-proposition { text-align: left; font-size: clamp(1rem, 4.5vw, 1.4rem); padding-right: 0; }
-
-      /* その他 */
-      .services { padding: 4rem 1.5rem; }
-      .services-grid { grid-template-columns: 1fr; }
-      .sns-bar { gap: 1rem; padding: 0.6rem 1rem; }
-      .sns-link span { display: none; }
-      .fab-group { bottom: 3.2rem; right: 1rem; }
-      .subscribe-fab, .contact-fab { display: flex; align-items: center; justify-content: center; width: 148px; padding: 0.75rem 0; border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: transform 0.2s ease; background: white; color: black; border: none; box-shadow: 0 4px 16px rgba(255,255,255,0.2); }
-    }
-
-    html { scroll-behavior: smooth; }
+    .sub a { color: #a1a1aa; text-decoration: none; border-bottom: 1px solid #3a3a3a; }
+    .sub a:hover { color: #fff; }
   </style>
 </head>
 <body>
-  <div class="container">
-
-    <!-- Header -->
-    <header>
-      <div class="logo-container">
-        <img src="assets/logo-black-bg.png" alt="BLACKVOX Logo" class="logo-image">
-        <div class="brand-text">BLACKVOX</div>
-      </div>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1 class="tagline">Always here.</h1>
-        <!-- ④ <p class="subtitle">BLACKVOX</p> 削除済み -->
-        <div class="value-proposition">
-          From Outer Noise,<br>To Inner Voice
-        </div>
-      </div>
-      <div class="hero-character">
-        <img src="assets/vox-character.png" alt="Dr. Vox - Your Philosophical Guide" class="character-image">
-      </div>
-    </section>
-
-    <!-- Services -->
-    <section class="services">
-      <div class="services-container">
-        <h2 class="services-title">Our Ecosystem</h2>
-        <div class="services-grid">
-
-          <!-- ⑥ LIVE バッジ追加 -->
-          <div class="service-card">
-            <div class="live-badge">Live</div>
-            <h3 class="service-name">WHAT IF</h3>
-            <p class="service-concept">COMPLEX TO SIMPLE</p>
-            <p class="service-description">
-              思考実験を通じて、複雑な現実をシンプルな本質へ。日常のノイズの中から核心を見つけ、思考をクリアにするための視点を提供します。
-            </p>
-          </div>
-
-          <div class="service-card coming-soon">
-            <p class="service-concept">SIMPLE TO DEEP</p>
-            <p class="service-description">
-              高度なキュレーションによって実現される高品質な物理空間を構築します。
-            </p>
-          </div>
-
-          <div class="service-card coming-soon">
-            <p class="service-concept">DEEP TO DELIGHTFUL</p>
-            <p class="service-description">
-              人生の根本的な問いに楽しく向き合うプログラムを展開します。
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </div><!-- /container -->
-
-  <!-- ② FABグループ（常時表示・右下固定！E-->
-  <div class="fab-group">
-    <a href="https://line.me/R/ti/p/@618fntsv" target="_blank" rel="noopener noreferrer" class="subscribe-fab">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white" style="margin-right:6px;flex-shrink:0;vertical-align:middle"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>LINE登録
-    </a>
-    <a href="mailto:contact@blackvox.co" class="contact-fab">
-      Contact
-    </a>
-  </div>
-
-  <!-- ⑤ SNSリンク�E�画面下部固定バー�E�E-->
-  <div class="sns-bar">
-
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@blackvox_co" target="_blank" rel="noopener noreferrer" class="sns-link" aria-label="TikTok">
-      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
-      <span>TikTok</span>
-    </a>
-
-    <!-- Instagram -->
-    <a href="https://www.instagram.com/blackvox_co/" target="_blank" rel="noopener noreferrer" class="sns-link" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      <span>Instagram</span>
-    </a>
-
-    <!-- YouTube -->
-    <a href="https://www.youtube.com/@blackvox_co" target="_blank" rel="noopener noreferrer" class="sns-link" aria-label="YouTube">
-      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      <span>YouTube</span>
-    </a>
-
-  </div>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <div class="wordmark">BLACKVOX</div>
+  <div class="status"><span class="dot"></span>Coming soon</div>
+  <p class="sub">
+    新しいかたちで準備しています。<br>
+    お問い合わせ： <a href="mailto:contact@blackvox.co">contact@blackvox.co</a>
+  </p>
 </body>
 </html>
